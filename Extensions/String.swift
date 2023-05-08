@@ -90,13 +90,13 @@ extension String {
     
     
     //MARK: Function - Message a phone number
-    func message(currentController: UIViewController) -> (result: Bool, cont: MFMessageComposeViewController) {
+    func message(delegateController: UIViewController) -> (result: Bool, cont: MFMessageComposeViewController) {
         let formattedNum = self.formatNumber(type: .Calling)
         let controller = MFMessageComposeViewController()
         var result: Bool!
         
         if (MFMessageComposeViewController.canSendText()) {
-            controller.messageComposeDelegate = currentController as? MFMessageComposeViewControllerDelegate
+            controller.messageComposeDelegate = delegateController as? MFMessageComposeViewControllerDelegate
             controller.recipients = [formattedNum]
             controller.body = ""
             
@@ -111,12 +111,12 @@ extension String {
     
     
     //MARK: Function - Email
-    func email(currentController: UIViewController, emails: [String]) -> (result: Bool, cont: MFMailComposeViewController) {
+    func email(delegateController: UIViewController, emails: [String]) -> (result: Bool, cont: MFMailComposeViewController) {
         let controller = MFMailComposeViewController()
         var result: Bool!
         
         if (MFMailComposeViewController.canSendMail()) {
-            controller.mailComposeDelegate = currentController as? MFMailComposeViewControllerDelegate
+            controller.mailComposeDelegate = delegateController as? MFMailComposeViewControllerDelegate
             controller.setToRecipients(emails)
             controller.setMessageBody("", isHTML: false)
             
